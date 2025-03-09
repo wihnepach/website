@@ -1,11 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BrGTU</title>
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    
+    <div class="top-bar">
+        <div class="welcome-text">Добро пожаловать на сайт</div>
+        <button class="login-button" onclick="toggleForm()">Регистрация/Войти</button>
+    </div>
+
+    <div class="form-container" id="form-container">
+        <form id="registration-form">
+            <h2>Регистраиця</h2>
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <label for="confirm-password">Подтвердите пароль:</label>
+            <input type="password" id="confirm-password" name="confirm-password" required>
+            
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+
+    <script>
+        // Функция для отображения или скрытия формы регистрации
+        function toggleForm() {
+            const formContainer = document.getElementById("form-container");
+            formContainer.style.display = formContainer.style.display === "block" ? "none" : "block";
+        }
+
+        // Валидация формы перед отправкой
+        const form = document.getElementById("registration-form");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+
+            if (password !== confirmPassword) {
+                alert("Пароли не совпадают!");
+                return;
+            }
+
+            // Отправка данных или выполнение других действий
+            alert("Регистрация прошла успешно!");
+            form.reset();
+            toggleForm();
+        });
+    </script>
 </body>
 </html>
