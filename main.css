@@ -7,27 +7,33 @@
 body, html {
     height: 100%;
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    background-image: 
+    url(../img/fon.jpg);
+    background-size: cover;
 }
 
 /* Верхняя панель */
 .top-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center; /* Центрируем контент */
     background-color: #1E3A8A;
     color: white;
     padding: 15px 20px;
+    position: relative; /* Добавляем позиционирование */
 }
 
 .welcome-text {
     font-size: 1.5rem;
     padding: 10px;
-    border: 2px solid white;
-    border-radius: 5px;
+    text-align: center; /* Центрируем текст внутри блока */
 }
 
 .login-button {
+    position: absolute;
+    right: 20px; /* Размещаем кнопку справа */
+    top: 50%;
+    transform: translateY(-50%);
     padding: 10px 20px;
     font-size: 1rem;
     background-color: #4CAF50;
@@ -40,16 +46,32 @@ body, html {
 .login-button:hover {
     background-color: #45a049;
 }
+.contact-info {
+    position: absolute;
+    left: 20px; /* Размещение в левом углу */
+    top: 50%;
+    transform: translateY(-50%); /* Центрируем по вертикали */
+    font-size: 14px;
+    color: white;
+    font-weight: normal;
+}
 
-/* Форма */
+.contact-info p {
+    margin: 0;
+    padding: 2px 0;
+}
+/* Контейнер для формы, всегда по центру сверху */
 .form-container {
-    display: none;
+    position: absolute;
+    top: 20%; /* Фиксируем сверху */
+    left: 50%;
+    transform: translate(-50%, 0);
     width: 400px;
-    margin: 50px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
 }
 
 form {
@@ -97,3 +119,117 @@ button {
 button:hover {
     background-color: #45a049;
 }
+.catalog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0px; /* отступ от синей полосы сверху */
+    text-align: center; /* выравнивание по центру */
+    background-color: #2f04ca;
+    padding: 5px 20px;
+  }
+  
+  .man-button {
+    position: relative;
+    left: -400px; /* сдвиг вправо на 30 пикселей */
+    padding: 10px 20px;
+    margin-right: 10px;
+    font-size: 16px;
+    background-color: #4f930f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .woman-button{
+    position: relative;
+    left: -400px; /* сдвиг вправо на 30 пикселей */
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4f930f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .kids-button{
+    position: relative;
+    left: -390px; /* сдвиг вправо на 30 пикселей */
+    padding: 10px 20px;
+    margin-right: 10px;
+    font-size: 16px;
+    background-color: #4f930f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .sport-button {
+    position: relative;
+    margin-right: 10px;
+    left: -390px; /* сдвиг вправо на 30 пикселей */
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4f930f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .brand-button{
+    position: relative;
+    margin-right: 10px;
+    left: -390px; /* сдвиг вправо на 30 пикселей */
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4f930f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+  }
+ 
+.advertisement-text {
+    font-size: 20px;
+    margin: 10px 0;
+    color: white;
+    white-space: nowrap; /* Запрещаем перенос строк */
+}
+
+.new-line {
+    display: block; /* Элемент начнёт новую строку */
+    margin-top: 10px; /* Отступ сверху */
+}
+.reclama {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    gap: 20px; /* Расстояние между картинкой и текстом */
+  }
+  
+  .img-left {
+    height: 535px;
+    border-radius: 5px;
+  }
+  
+  .text-column {
+    width: 400px;
+    font-size: 15px;
+    line-height: 1.3;
+    text-align: justify;
+    color: white;
+  }
+  
+  .text-column p {
+    margin-bottom: 10px;
+  }
+  
+  .text-column ul {
+    padding-left: 20px;
+  }
