@@ -7,13 +7,21 @@ document.addEventListener("DOMContentLoaded", function () {
     // Функция обновления кнопки входа/профиля
     function updateLoginButton() {
         const loggedInUser = localStorage.getItem("loggedInUser");
-
-        if (loggedInUser && loggedInUser.trim() !== "") { 
+    
+        if (loggedInUser && loggedInUser.trim() !== "") {
+            loginButton.textContent = "выйти";
+            loginButton.onclick = function () {
+                localStorage.removeItem("loggedInUser");
+                loginButton.textContent = "войти";
+                loginButton.onclick = toggleForm; // вернём исходное поведение
+                alert("Вы вышли из аккаунта.");
+            };
+        } else {
             loginButton.textContent = "войти";
-       
-            localStorage.removeItem("loggedInUser"); // Удаляем некорректное значение
+            loginButton.onclick = toggleForm;
         }
     }
+    
 
     // Функция переключения форм
     window.showRegistrationForm = function () {
@@ -29,12 +37,14 @@ document.addEventListener("DOMContentLoaded", function () {
     window.toggleForm = function () {
         if (formContainer.style.display === "block") {
             formContainer.style.display = "none";
+            document.getElementById("overlay").style.display = "none";
         } else {
             formContainer.style.display = "block";
+            document.getElementById("overlay").style.display = "block";
             showLoginForm();
         }
     };
-
+    
     // Обработка регистрации
     registrationForm.addEventListener("submit", function (event) {
         event.preventDefault();
