@@ -1,0 +1,164 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f2f2f2;
+}
+
+header {
+  background-color: #222;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+  color: #fff;
+  background: #4caf50;
+}
+
+.user-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.user-actions button {
+  background: transparent;
+  border: 1px solid #4caf50;
+  color: #4caf50;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.user-actions button:hover {
+  background: #4caf50;
+  color: #fff;
+}
+
+.cart-icon {
+  font-size: 22px;
+  text-decoration: none;
+  color: #4caf50;
+  transition: transform 0.2s;
+}
+
+.cart-icon:hover {
+  transform: scale(1.2);
+}
+
+main {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.loto-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.loto-section h1 {
+  font-size: 32px;
+  color: #333;
+}
+
+.loto-section p {
+  font-size: 18px;
+  color: #555;
+}
+
+#loto-button {
+  padding: 12px 24px;
+  font-size: 20px;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+#loto-button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.cart-section {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.cart-section h2 {
+  margin-top: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.cart-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.cart-section li {
+  padding: 6px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.checkout-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-btn:hover {
+  background-color: #1976d2;
+}

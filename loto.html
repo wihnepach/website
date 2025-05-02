@@ -1,11 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>бренды</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Лото — Магазин</title>
+  <link rel="stylesheet" href="loto.css" />
 </head>
 <body>
-    
+  <header>
+    <nav class="navbar">
+      <div class="logo"><a href="/">Магазин</a></div>
+      <ul class="nav-links">
+        <li><a href="/man">Мужское</a></li>
+        <li><a href="/woman">Женское</a></li>
+        <li><a href="/kids">Детское</a></li>
+        <li><a href="/sport">Спорт</a></li>
+        <li><a href="/loto.html" class="active">Лото</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div id="random-item" class="hidden" style="margin-top: 20px; text-align: center;"></div>
+    <section class="loto-section">
+      <h1>🎲 Испытай удачу!</h1>
+      <p>Нажми на кнопку ниже, и случайный товар будет добавлен в корзину.</p>
+      <button id="loto-button">Получить случайный товар</button>
+      <div id="random-item" class="random-item hidden"></div>
+    </section>
+
+    <section class="cart-section">
+      <h2>🛒 Корзина</h2>
+      <ul id="cart-items"></ul>
+      <p><strong>Итого:</strong> <span id="cart-total">0</span> ₽</p>
+      <button onclick="checkout()" class="checkout-btn">Оформить заказ</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>

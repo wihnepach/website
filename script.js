@@ -188,3 +188,90 @@ detailsBtns.forEach(btn => {
     }
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const lotoButton = document.getElementById("loto-button");
+  
+    if (lotoButton) {
+      lotoButton.addEventListener("click", async () => {
+        try {
+          const res = await fetch('/api/products');
+          const products = await res.json();
+          if (!products || products.length === 0) {
+            alert("Нет доступных товаров.");
+            return;
+          }
+  
+          const randomProduct = products[Math.floor(Math.random() * products.length)];
+          addToCart(randomProduct.name, parseInt(randomProduct.price));
+  
+          const itemDiv = document.getElementById("random-item");
+          if (itemDiv) {
+            itemDiv.innerHTML = `
+              <img src="${randomProduct.image}" alt="${randomProduct.name}">
+              <h3>${randomProduct.name}</h3>
+              <p>${randomProduct.price}₽</p>
+              <p>${randomProduct.description}</p>
+            `;
+            itemDiv.classList.remove("hidden");
+          }
+        } catch (err) {
+          alert("Ошибка при получении товара.");
+          console.error(err);
+        }
+      });
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const lotoButton = document.getElementById("loto-button");
+  
+    const products = [
+      {
+        name: "Футболка Nike",
+        price: 1999,
+        image: "https://via.placeholder.com/120",
+        description: "Классическая хлопковая футболка."
+      },
+      {
+        name: "Кроссовки Adidas",
+        price: 5999,
+        image: "https://via.placeholder.com/120",
+        description: "Лёгкие и удобные кроссовки."
+      },
+      {
+        name: "Кепка Puma",
+        price: 1299,
+        image: "https://via.placeholder.com/120",
+        description: "Спортивная кепка для жаркой погоды."
+      }
+    ];
+  
+    if (lotoButton) {
+      lotoButton.addEventListener("click", () => {
+        if (products.length === 0) {
+          alert("Нет доступных товаров!");
+          return;
+        }
+  
+        const randomProduct = products[Math.floor(Math.random() * products.length)];
+        addToCart(randomProduct.name, randomProduct.price);
+  
+        const itemDiv = document.getElementById("random-item");
+        if (itemDiv) {
+          itemDiv.innerHTML = `
+            <img src="${randomProduct.image}" alt="${randomProduct.name}" style="max-width: 120px; border-radius: 8px;">
+            <h3>${randomProduct.name}</h3>
+            <p><strong>${randomProduct.price}₽</strong></p>
+            <p>${randomProduct.description}</p>
+          `;
+          itemDiv.classList.remove("hidden");
+        }
+  
+        alert(`Вы получили: ${randomProduct.name}! Он добавлен в корзину.`);
+      });
+    }
+  });
+  
+  
+
