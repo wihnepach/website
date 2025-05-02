@@ -32,8 +32,8 @@ app.get('/sport', (req, res) => {
     res.sendFile(path.join(__dirname, 'sport.html'));
 });
 
-app.get('/brand', (req, res) => {
-    res.sendFile(path.join(__dirname, 'brand.html'));
+app.get('/loto', (req, res) => {
+    res.sendFile(path.join(__dirname, 'loto.html'));
 });
 
 // Пример API-запроса — можно использовать для получения данных из базы
