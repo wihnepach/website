@@ -4,6 +4,7 @@
   "main": "script.js",
   "dependencies": {
     "accepts": "^2.0.0",
+    "better-sqlite3": "^11.9.1",
     "body-parser": "^2.2.0",
     "bytes": "^3.1.2",
     "call-bind-apply-helpers": "^1.0.2",
@@ -65,6 +66,7 @@
     "side-channel-list": "^1.0.0",
     "side-channel-map": "^1.0.1",
     "side-channel-weakmap": "^1.0.2",
+    "sqlite3": "^5.1.7",
     "statuses": "^2.0.1",
     "toidentifier": "^1.0.1",
     "type-is": "^2.0.1",

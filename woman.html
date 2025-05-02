@@ -33,22 +33,42 @@
 
   <section class="catalog" id="catalog">
     <div class="item clothes">
-      <img src="https://via.placeholder.com/200x200?text=Женская+куртка" alt="Женская куртка">
+      <img src="img/wkurt.jpg" alt="Женская куртка">
       <h3>Женская куртка</h3>
-      <p>Цена: 4500₽</p>
+      <p class="price">Цена: 4500₽</p>
       <button onclick="addToCart('Женская куртка', 4500)">В корзину</button>
+      <button class="details-btn">Подробнее</button>
+      <div class="description" style="display: none;">
+        <p>Эта женская куртка идеально подходит для прохладной и ветреной погоды. Модель выполнена из водоотталкивающего материала, защищающего от дождя и снега.</p>
+        <p>Внутренняя подкладка обеспечивает тепло и комфорт, а капюшон с утяжками позволяет адаптироваться к изменяющимся условиям. Застёжка-молния дополнена ветрозащитной планкой.</p>
+        <p>Стильный крой и приталенная посадка подчёркивают фигуру, делая куртку не только функциональной, но и модной.</p>
+      </div>
     </div>
+
     <div class="item shoes">
-      <img src="https://via.placeholder.com/200x200?text=Кроссовки+женские" alt="Кроссовки женские">
+      <img src="img/wbeg.jpg" alt="Кроссовки женские">
       <h3>Кроссовки женские</h3>
-      <p>Цена: 3900₽</p>
+      <p class="price">Цена: 3900₽</p>
       <button onclick="addToCart('Кроссовки женские', 3900)">В корзину</button>
+      <button class="details-btn">Подробнее</button>
+      <div class="description" style="display: none;">
+        <p>Передняя часть кроссовка должна хорошо сгибаться благодаря наличию желобков на подошве и свободно вмещать пальцы ног.</p>
+        <p>Для бега по пересеченной местности советуют кроссовки с защитой мыска, чтобы избежать ушибов о камни, корни деревьев.</p>
+        <p>Область пальцев чаще всего закрыта деталью из плотного материала, а верх позволяет обуви «дышать».</p>
+      </div>
     </div>
+
     <div class="item accessories">
-      <img src="https://via.placeholder.com/200x200?text=Спортивная+сумка" alt="Сумка спортивная">
+      <img src="img/wsum.jpg" alt="Сумка спортивная">
       <h3>Спортивная сумка</h3>
-      <p>Цена: 2100₽</p>
+      <p class="price">Цена: 2100₽</p>
       <button onclick="addToCart('Спортивная сумка', 2100)">В корзину</button>
+      <button class="details-btn">Подробнее</button>
+      <div class="description" style="display: none;">
+        <p>Универсальная спортивная сумка с просторным отделением для формы, обуви и аксессуаров. Изготовлена из прочного водоотталкивающего материала.</p>
+        <p>Удобные ручки и регулируемый ремень обеспечивают комфорт при переноске. Внутри — несколько карманов, включая отсек для бутылки.</p>
+        <p>Идеальный выбор для тренировок, фитнеса или активного образа жизни.</p>
+      </div>
     </div>
   </section>
 
@@ -63,6 +83,61 @@
     <p>© 2025 СпортМания. Все права защищены.</p>
   </footer>
 
-  <script src="women.js"></script>
+  <script>
+    // Кнопки "Подробнее"
+    document.addEventListener("DOMContentLoaded", () => {
+      const detailsBtns = document.querySelectorAll(".details-btn");
+
+      detailsBtns.forEach(btn => {
+        btn.addEventListener("click", function () {
+          const description = this.nextElementSibling;
+          if (description.style.display === "none" || description.style.display === "") {
+            description.style.display = "block";
+          } else {
+            description.style.display = "none";
+          }
+        });
+      });
+    });
+
+    // Пример функции добавления в корзину
+    let cart = [];
+    function addToCart(item, price) {
+      cart.push({ item, price });
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartItems = document.getElementById("cart-items");
+      const cartTotal = document.getElementById("cart-total");
+      cartItems.innerHTML = "";
+      let total = 0;
+      cart.forEach(({ item, price }) => {
+        const li = document.createElement("li");
+        li.textContent = `${item} - ${price}₽`;
+        cartItems.appendChild(li);
+        total += price;
+      });
+      cartTotal.textContent = total;
+    }
+
+    function checkout() {
+      alert("Заказ оформлен!");
+      cart = [];
+      updateCart();
+    }
+
+    // Пример фильтрации
+    function filterItems(category) {
+      const items = document.querySelectorAll(".item");
+      items.forEach(item => {
+        if (category === "all" || item.classList.contains(category)) {
+          item.style.display = "block";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    }
+  </script>
 </body>
 </html>
