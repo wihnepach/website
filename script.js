@@ -230,19 +230,19 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         name: "Футболка Nike",
         price: 1999,
-        image: "https://via.placeholder.com/120",
+        image: "img/opa.jpg",
         description: "Классическая хлопковая футболка."
       },
       {
         name: "Кроссовки Adidas",
         price: 5999,
-        image: "https://via.placeholder.com/120",
+        image: "img/boti.jpg",
         description: "Лёгкие и удобные кроссовки."
       },
       {
         name: "Кепка Puma",
         price: 1299,
-        image: "https://via.placeholder.com/120",
+        image: "img/kaska.jpg",
         description: "Спортивная кепка для жаркой погоды."
       }
     ];
