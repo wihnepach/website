@@ -1,75 +1,201 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body, html {
-    height: 100%;
-    font-family: Arial, sans-serif;
-   background-color: #341a92;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #341a92;
 }
 
 /* Верхняя панель */
 .top-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Центрируем контент */
-    background-color: #1E3A8A;
-    color: white;
-    padding: 15px 20px;
-    position: relative; /* Добавляем позиционирование */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1E3A8A;
+  color: white;
+  padding: 15px 20px;
+  position: relative;
 }
 
 .welcome-text {
-    font-size: 1.5rem;
-    padding: 10px;
-    text-align: center; /* Центрируем текст внутри блока */
+  font-size: 1.5rem;
+  padding: 10px;
+  text-align: center;
 }
 
 .login-button {
-    position: absolute;
-    right: 20px; /* Размещаем кнопку справа */
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #069aa2;
-    color: white;
-    border: 2px solid white;
-    border-radius: 5px;
-    cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #069aa2;
+  color: white;
+  border: 2px solid white;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .login-button:hover {
-    background-color: #069aa2;
+  background-color: #04858b;
 }
+
 .contact-info {
-    position: absolute;
-    left: 20px; /* Размещение в левом углу */
-    top: 50%;
-    transform: translateY(-50%); /* Центрируем по вертикали */
-    font-size: 14px;
-    color: white;
-    font-weight: normal;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: white;
+  font-weight: normal;
 }
 
 .contact-info p {
-    margin: 0;
-    padding: 2px 0;
+  margin: 0;
+  padding: 2px 0;
 }
 
+/* Каталог кнопок */
+.catalog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2f04ca;
+  padding: 10px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.catalog a {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #069aa2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.catalog a:hover {
+  background-color: #04858b;
+}
+
+/* Рекламный блок */
+.reclama {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+  margin: 20px auto;
+  max-width: 1200px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.img-left {
+  width: 300px;
+  height: auto;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.text-column {
+  flex: 1;
+  color: #333;
+  font-size: 16px;
+}
+
+.text-column p {
+  margin-bottom: 10px;
+}
+
+.text-column ul {
+  margin-left: 20px;
+  list-style: disc;
+}
+
+.advertisement-text {
+  color: white;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.new-line {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Форма входа/регистрации */
 #form-container {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 20px;
-  z-index: 2;
+  padding: 30px;
+  z-index: 100;
   border-radius: 10px;
   display: none;
   box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 400px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form h2 {
+  text-align: center;
+  color: #1E3A8A;
+}
+
+/* Поля ввода */
+.input-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.input-container i {
+  position: absolute;
+  left: 10px;
+  font-size: 18px;
+  color: #666;
+}
+
+.input-container input {
+  width: 100%;
+  padding: 10px 10px 10px 35px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Кнопки */
+button {
+  padding: 10px;
+  background-color: #069aa2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #04858b;
 }
 
 /* Затемнение фона */
@@ -83,164 +209,3 @@ body, html {
   z-index: 1;
   display: none;
 }
-
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-form h2 {
-    text-align: center;
-}
-
-/* Поля ввода */
-.input-container {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.input-container i {
-    position: absolute;
-    left: 10px;
-    font-size: 18px;
-    color: #666;
-}
-
-.input-container input {
-    width: 100%;
-    padding: 10px 10px 10px 35px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* Стили кнопок */
-button {
-    padding: 10px;
-    background-color: #069aa2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-button:hover {
-    background-color:#069aa2;
-}
-.catalog {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 0px; /* отступ от синей полосы сверху */
-    text-align: center; /* выравнивание по центру */
-    background-color: #2f04ca;
-    padding: 5px 20px;
-  }
-  
-  .man-button {
-    position: relative;
-    left: -400px; /* сдвиг вправо на 30 пикселей */
-    padding: 10px 20px;
-    margin-right: 10px;
-    font-size: 16px;
-    background-color: #069aa2;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .woman-button{
-    position: relative;
-    left: -400px; /* сдвиг вправо на 30 пикселей */
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color:#069aa2;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .kids-button{
-    position: relative;
-    left: -390px; /* сдвиг вправо на 30 пикселей */
-    padding: 10px 20px;
-    margin-right: 10px;
-    font-size: 16px;
-    background-color: #069aa2;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .sport-button {
-    position: relative;
-    margin-right: 10px;
-    left: -390px; /* сдвиг вправо на 30 пикселей */
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #069aa2;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .brand-button{
-    position: relative;
-    margin-right: 10px;
-    left: -390px; /* сдвиг вправо на 30 пикселей */
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #069aa2;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; 
-  }
- 
-.advertisement-text {
-    font-size: 20px;
-    margin: 10px 0;
-    color: white;
-    white-space: nowrap; /* Запрещаем перенос строк */
-}
-
-.new-line {
-    display: block; /* Элемент начнёт новую строку */
-    margin-top: 10px; /* Отступ сверху */
-}
-.reclama {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 10px;
-    gap: 20px; /* Расстояние между картинкой и текстом */
-  }
-  
-  .img-left {
-    height: 535px;
-    border-radius: 5px;
-  }
-  
-  .text-column {
-    width: 400px;
-    font-size: 15px;
-    line-height: 1.3;
-    text-align: justify;
-    color: white;
-  }
-  
-  .text-column p {
-    margin-bottom: 10px;
-  }
-  
-  .text-column ul {
-    padding-left: 20px;
-  }

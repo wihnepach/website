@@ -1,11 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>мужчинам</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Мужской раздел — Спорт</title>
+  <link rel="stylesheet" href="man.css" />
 </head>
 <body>
-    
+  <header class="topbar">
+    <h1>СпортМания</h1>
+    <nav>
+        <a href="/" class="index">гланвая</a>
+        <a href="/man" class="man-button">Мужчинам</a>
+        <a href="/woman" class="woman-button">женщинам</a>
+        <a href="/kids" class="kids-button">детям</a>
+        <a href="/sport" class="sport-button">виды спорта</a>
+        <a href="/brand" class="brand-button">бренды</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Мужская коллекция</h2>
+    <p>Одежда, обувь и экипировка для спорта и активной жизни</p>
+  </section>
+
+  <section class="filters">
+    <button onclick="filterItems('all')">Все</button>
+    <button onclick="filterItems('clothes')">Одежда</button>
+    <button onclick="filterItems('shoes')">Обувь</button>
+    <button onclick="filterItems('equipment')">Экипировка</button>
+  </section>
+
+  <section class="catalog" id="catalog">
+    <div class="item clothes">
+      <img src="https://via.placeholder.com/200x200?text=Футболка" alt="Футболка">
+      <h3>Спортивная футболка</h3>
+      <p class="price">1200₽</p>
+      <button class="add-to-cart">В корзину</button>
+    </div>
+    <div class="item shoes">
+      <img src="https://via.placeholder.com/200x200?text=Кроссовки" alt="Кроссовки">
+      <h3>Кроссовки для бега</h3>
+      <p class="price">5500₽</p>
+      <button class="add-to-cart">В корзину</button>
+    </div>
+    <div class="item equipment">
+      <img src="https://via.placeholder.com/200x200?text=Перчатки" alt="Перчатки">
+      <h3>Тренировочные перчатки</h3>
+      <p class="price">900₽</p>
+      <button class="add-to-cart">В корзину</button>
+    </div>
+    <!-- При необходимости добавьте новые .item по той же схеме -->
+  </section>
+
+  <aside class="cart" id="cart">
+    <h3>Корзина</h3>
+    <ul id="cart-items"></ul>
+    <p><strong>Итого:</strong> <span id="cart-total">0</span>₽</p>
+    <button onclick="checkout()">Оформить заказ</button>
+  </aside>
+
+  <footer>
+    <p>© 2025 СпортМания. Все права защищены.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

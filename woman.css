@@ -1,0 +1,128 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f3f3f3;
+    color: #333;
+  }
+  
+  .topbar {
+    background-color: #222;
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .topbar nav a {
+    color: #ccc;
+    margin-left: 20px;
+    text-decoration: none;
+  }
+  
+  .topbar nav a.active, .topbar nav a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+  
+  .hero {
+    text-align: center;
+    padding: 3rem 1rem;
+    background-color: #e91e63;
+    color: white;
+  }
+  
+  .filters {
+    text-align: center;
+    padding: 1rem;
+    background: #fff;
+  }
+  
+  .filters button {
+    margin: 0 8px;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #e91e63;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  }
+  
+  .filters button:hover {
+    background: #c2185b;
+  }
+  
+  .catalog {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem;
+    gap: 20px;
+  }
+  
+  .item {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    width: 200px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  
+  .item img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .item button {
+    margin-top: 10px;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #28a745;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  }
+  
+  .item button:hover {
+    background: #1e7e34;
+  }
+  
+  .cart {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    width: 250px;
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    z-index: 1000;
+  }
+  
+  .cart ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .cart li {
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background: #222;
+    color: #ccc;
+  }
+  

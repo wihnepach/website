@@ -106,3 +106,85 @@ document.addEventListener("DOMContentLoaded", function () {
     // Проверяем пользователя при загрузке страницы
     updateLoginButton();
 });
+// корзина — массив { name, price }
+let cart = [];
+
+// назначаем фильтрацию
+function filterItems(category) {
+  document.querySelectorAll('.catalog .item').forEach(item => {
+    item.style.display = (category === 'all' || item.classList.contains(category)) 
+      ? 'block' : 'none';
+  });
+}
+
+// вешаем обработчики на все кнопки «В корзину»
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.item');
+      const name = item.querySelector('h3').textContent;
+      // извлекаем число из текста «1200₽»
+      const priceText = item.querySelector('.price').textContent;
+      const price = parseInt(priceText.replace(/\D/g, ''), 10);
+      addToCart(name, price);
+    });
+  });
+  updateCartUI();
+});
+
+function addToCart(name, price) {
+  cart.push({ name, price });
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const cartList  = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  cartList.innerHTML = '';
+  let total = 0;
+
+  cart.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = `${item.name} — ${item.price}₽`;
+    cartList.appendChild(li);
+    total += item.price;
+  });
+
+  cartTotal.textContent = total;
+}
+
+function checkout() {
+  if (cart.length === 0) {
+    alert('Корзина пуста');
+    return;
+  }
+  alert('Заказ оформлен! Спасибо за покупку.');
+  cart = [];
+  updateCartUI();
+}
+
+function addToCart(name, price) {
+    cart.push({ name, price });
+    updateCartUI();
+  }
+
+  function filterItems(category) {
+    const items = document.querySelectorAll('#catalog .item');
+    items.forEach(item => {
+      item.style.display = (category === 'all' || item.classList.contains(category)) 
+        ? 'block' 
+        : 'none';
+    });
+  }
+  const detailsBtns = document.querySelectorAll('.details-btn');
+
+detailsBtns.forEach(btn => {
+  btn.addEventListener('click', function() {
+    const description = this.nextElementSibling;
+    if (description.style.display === 'none' || description.style.display === '') {
+      description.style.display = 'block';
+    } else {
+      description.style.display = 'none';
+    }
+  });
+});

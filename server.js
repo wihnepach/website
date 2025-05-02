@@ -1,11 +1,14 @@
 const express = require('express');
 const path = require('path');
+const sqlite3 = require('sqlite3').verbose(); 
 
 const app = express();
-const PORT = 5500;
+const PORT = 5501;
 
 // Обслуживание всех статических файлов из текущей директории
 app.use(express.static(path.join(__dirname)));
+
+const db = new sqlite3.Database('base_arsen_markarian.db'); 
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));  // Отдаем main.html из текущей директории

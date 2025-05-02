@@ -1,0 +1,219 @@
+/* Подключаем весёлый рукописный шрифт */
+body {
+  font-family: Arial, sans-serif;
+  background: #fff9e6; /* пастельно-жёлтый фон страницы */
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.kids-topbar {
+  background-color: #ff8c00; /* ярко-оранжевый */
+  padding: 1rem 2rem;
+}
+.kids-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+.topbar nav a {
+  color: #ffe082;
+  margin-left: 20px;
+  text-decoration: none;
+}
+.topbar nav a.active, .topbar nav a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Геройский блок с градиентом и иконкой */
+.kids-hero {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, #ff8c00, #ffd700);
+  color: #fff;
+  position: relative;
+}
+.hero-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 50px;
+  opacity: 0.8;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Фильтры: округлые кнопки зелёного цвета */
+.kids-filters {
+  text-align: center;
+  padding: 1rem;
+  background: #fff;
+}
+.kids-filters button {
+  margin: 0 8px;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: #28a745;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Fredoka One', cursive;
+  transition: transform 0.2s;
+}
+.kids-filters button:hover {
+  transform: scale(1.05);
+}
+
+/* Карточки товаров: фон пастельно-жёлтый, скруглённые */
+.kids-catalog .item {
+  background: #fff9e6;
+  border: 2px dashed #ffd700;
+  padding: 1rem;
+  border-radius: 15px;
+  width: 180px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.kids-catalog .item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.kids-catalog .item button {
+  margin-top: 10px;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #ff5722;
+  color: white;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.kids-catalog .item button:hover {
+  background: #e64a19;
+}
+
+/* Мини‑корзина в детском стиле */
+.kids-cart {
+  position: fixed;
+  top: 120px;
+  right: 20px;
+  width: 260px;
+  background: #fff;
+  border: 2px solid #ff8c00;
+  border-radius: 15px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.kids-cart h3 {
+  font-family: 'Fredoka One', cursive;
+  color: #ff5722;
+}
+
+/* Футер */
+.kids-footer {
+  text-align: center;
+  padding: 1rem;
+  background: #ff8c00;
+  color: #ffe082;
+  font-family: 'Fredoka One', cursive;
+}
+
+/* Анимация плавающего элемента */
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+body {
+    background: #fef9f4;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h2 {
+    text-align: center;
+    margin: 20px 0;
+    color: #ff66a3;
+  }
+  
+  .filters.kids-filters {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .filters.kids-filters button {
+    background: #ffccf2;
+    border: 2px solid #ff66a3;
+    color: #d63384;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+  }
+  
+  .filters.kids-filters button:hover {
+    background: #ffd6f5;
+    transform: scale(1.05);
+  }
+  
+  .kids-catalog {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .kids-catalog .item {
+    background: #fff0f5;
+    border: 2px solid #ffc1e3;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    transition: 0.3s;
+  }
+  
+  .kids-catalog .item:hover {
+    box-shadow: 0 0 10px #ff99cc;
+    transform: scale(1.02);
+  }
+  
+  .kids-catalog .item img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+  
+  .kids-catalog .item h3 {
+    margin: 10px 0 5px;
+    color: #cc3399;
+  }
+  
+  .kids-catalog .item p {
+    margin: 5px 0;
+    font-weight: bold;
+  }
+  
+  .kids-catalog .item button {
+    background: #ffb3da;
+    border: none;
+    padding: 8px 15px;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .kids-catalog .item button:hover {
+    background: #ff80bf;
+  }
+  
