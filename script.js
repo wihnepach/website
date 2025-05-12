@@ -4,16 +4,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const formContainer = document.getElementById("form-container");
     const loginButton = document.getElementById("login-button");
 
-    // Функция обновления кнопки входа/профиля
     function updateLoginButton() {
         const loggedInUser = localStorage.getItem("loggedInUser");
-    
-        if (loggedInUser && loggedInUser.trim() !== "") {
+
+        if (loggedInUser) {
             loginButton.textContent = "выйти";
             loginButton.onclick = function () {
                 localStorage.removeItem("loggedInUser");
                 loginButton.textContent = "войти";
-                loginButton.onclick = toggleForm; // вернём исходное поведение
+                loginButton.onclick = toggleForm;
                 alert("Вы вышли из аккаунта.");
             };
         } else {
@@ -21,9 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
             loginButton.onclick = toggleForm;
         }
     }
-    
 
-    // Функция переключения форм
     window.showRegistrationForm = function () {
         loginForm.style.display = "none";
         registrationForm.style.display = "block";
@@ -44,9 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
             showLoginForm();
         }
     };
-    
-    // Обработка регистрации
-    registrationForm.addEventListener("submit", function (event) {
+
+    registrationForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
         const name = document.getElementById("name").value;
@@ -59,51 +55,50 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-        
-        // Проверяем, зарегистрирован ли пользователь
-        if (users.some(user => user.email === email)) {
-            alert("Этот email уже зарегистрирован!");
-            return;
+        try {
+            const res = await fetch("/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, password })
+            });
+
+            const text = await res.text();
+            if (!res.ok) throw new Error(text);
+
+            alert("Регистрация успешна!");
+            localStorage.setItem("loggedInUser", email);
+            updateLoginButton();
+            toggleForm();
+        } catch (err) {
+            alert("Ошибка регистрации: " + err.message);
         }
-
-        users.push({ name, email, password });
-        localStorage.setItem("users", JSON.stringify(users));
-
-        // Сразу авторизуем пользователя после регистрации
-        localStorage.setItem("loggedInUser", email);
-
-        alert("Регистрация успешна! Вы вошли в аккаунт.");
-        
-        updateLoginButton(); // Обновляем текст кнопки
-        toggleForm();
     });
 
-    // Обработка входа
-    loginForm.addEventListener("submit", function (event) {
+    loginForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
         const email = document.getElementById("login-email").value;
         const password = document.getElementById("login-password").value;
 
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-        const user = users.find(user => user.email === email && user.password === password);
+        try {
+            const res = await fetch("/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
 
-        if (!user) {
-            alert("Неверный email или пароль!");
-            return;
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || "Ошибка входа");
+
+            alert("Добро пожаловать, " + data.name);
+            localStorage.setItem("loggedInUser", email);
+            updateLoginButton();
+            toggleForm();
+        } catch (err) {
+            alert("Ошибка входа: " + err.message);
         }
-
-        // Сохраняем данные о входе
-        localStorage.setItem("loggedInUser", email);
-
-        alert("Вы успешно вошли!");
-
-        updateLoginButton(); // Меняем кнопку на "Профиль"
-        toggleForm();
     });
 
-    // Проверяем пользователя при загрузке страницы
     updateLoginButton();
 });
 // корзина — массив { name, price }
