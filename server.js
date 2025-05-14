@@ -19,14 +19,14 @@ app.get('/kids', (req, res) => res.sendFile(path.join(__dirname, 'kids.html')));
 app.get('/sport', (req, res) => res.sendFile(path.join(__dirname, 'sport.html')));
 app.get('/loto', (req, res) => res.sendFile(path.join(__dirname, 'loto.html')));
 
-// API ДЛЯ ПРОДУКТОВ
+// API: Получение всех товаров
 app.get('/api/products', (req, res) => {
     try {
         const stmt = db.prepare('SELECT * FROM products');
         const products = stmt.all();
         res.json(products);
     } catch (err) {
-        res.status(500).json({ error: 'Ошибка при получении данных из базы.' });
+        res.status(500).json({ error: 'Ошибка при получении товаров из базы.' });
     }
 });
 

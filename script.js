@@ -104,58 +104,74 @@ document.addEventListener("DOMContentLoaded", function () {
 // корзина — массив { name, price }
 let cart = [];
 
-// назначаем фильтрацию
-function filterItems(category) {
-  document.querySelectorAll('.catalog .item').forEach(item => {
-    item.style.display = (category === 'all' || item.classList.contains(category)) 
-      ? 'block' : 'none';
-  });
-}
+document.addEventListener("DOMContentLoaded", () => {
+    const lotoButton = document.getElementById("loto-button");
 
-// вешаем обработчики на все кнопки «В корзину»
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.add-to-cart').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.closest('.item');
-      const name = item.querySelector('h3').textContent;
-      // извлекаем число из текста «1200₽»
-      const priceText = item.querySelector('.price').textContent;
-      const price = parseInt(priceText.replace(/\D/g, ''), 10);
-      addToCart(name, price);
-    });
-  });
-  updateCartUI();
+    if (lotoButton) {
+        lotoButton.addEventListener("click", async () => {
+            try {
+                const res = await fetch('/api/products');
+                const products = await res.json();
+
+                if (!products || products.length === 0) {
+                    alert("Нет доступных товаров.");
+                    return;
+                }
+
+                const randomProduct = products[Math.floor(Math.random() * products.length)];
+                addToCart(randomProduct.name, parseInt(randomProduct.price));
+
+                const itemDiv = document.getElementById("random-item");
+                if (itemDiv) {
+                    itemDiv.innerHTML = `
+                        <img src="${randomProduct.image}" alt="${randomProduct.name}" style="max-width: 120px; border-radius: 8px;">
+                        <h3>${randomProduct.name}</h3>
+                        <p><strong>${randomProduct.price}₽</strong></p>
+                        <p>${randomProduct.description}</p>
+                    `;
+                    itemDiv.classList.remove("hidden");
+                }
+
+                alert(`Вы получили: ${randomProduct.name}! Он добавлен в корзину.`);
+            } catch (err) {
+                alert("Ошибка при получении товара.");
+                console.error(err);
+            }
+        });
+    }
+
+    updateCartUI();
 });
 
 function addToCart(name, price) {
-  cart.push({ name, price });
-  updateCartUI();
+    cart.push({ name, price });
+    updateCartUI();
 }
 
 function updateCartUI() {
-  const cartList  = document.getElementById('cart-items');
-  const cartTotal = document.getElementById('cart-total');
-  cartList.innerHTML = '';
-  let total = 0;
+    const cartList = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    cartList.innerHTML = '';
+    let total = 0;
 
-  cart.forEach(item => {
-    const li = document.createElement('li');
-    li.textContent = `${item.name} — ${item.price}₽`;
-    cartList.appendChild(li);
-    total += item.price;
-  });
+    cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} — ${item.price}₽`;
+        cartList.appendChild(li);
+        total += item.price;
+    });
 
-  cartTotal.textContent = total;
+    cartTotal.textContent = total;
 }
 
 function checkout() {
-  if (cart.length === 0) {
-    alert('Корзина пуста');
-    return;
-  }
-  alert('Заказ оформлен! Спасибо за покупку.');
-  cart = [];
-  updateCartUI();
+    if (cart.length === 0) {
+        alert('Корзина пуста');
+        return;
+    }
+    alert('Заказ оформлен! Спасибо за покупку.');
+    cart = [];
+    updateCartUI();
 }
 
 function addToCart(name, price) {
