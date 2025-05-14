@@ -21,22 +21,23 @@
     </nav>
   </header>
 
-  <main>
+ <main>
     <div id="random-item" class="hidden" style="margin-top: 20px; text-align: center;"></div>
     <section class="loto-section">
-      <h1>🎲 Испытай удачу!</h1>
-      <p>Нажми на кнопку ниже, и случайный товар будет добавлен в корзину.</p>
-      <button id="loto-button">Получить случайный товар</button>
-      <div id="random-item" class="random-item hidden"></div>
+        <h1>🎲 Испытай удачу!</h1>
+        <p>Нажми на кнопку ниже, и случайный товар будет добавлен в корзину.</p>
+        <button id="loto-button">Получить случайный товар</button>
+        <div id="random-item" class="random-item hidden"></div>
     </section>
 
-    <section class="cart-section">
-      <h2>🛒 Корзина</h2>
-      <ul id="cart-items"></ul>
-      <p><strong>Итого:</strong> <span id="cart-total">0</span> ₽</p>
-      <button onclick="checkout()" class="checkout-btn">Оформить заказ</button>
+    <!-- Корзина -->
+    <section id="cart-section">
+        <h2>Корзина</h2>
+        <ul id="cart-items"></ul>
+        <p>Итого: <span id="cart-total">0</span>₽</p>
+        <button onclick="checkout()">Оформить заказ</button>
     </section>
-  </main>
+</main>
 
   <script src="script.js"></script>
 </body>

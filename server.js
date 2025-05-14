@@ -19,14 +19,14 @@ app.get('/kids', (req, res) => res.sendFile(path.join(__dirname, 'kids.html')));
 app.get('/sport', (req, res) => res.sendFile(path.join(__dirname, 'sport.html')));
 app.get('/loto', (req, res) => res.sendFile(path.join(__dirname, 'loto.html')));
 
-// API: Получение всех товаров
+// API ДЛЯ ПРОДУКТОВ
 app.get('/api/products', (req, res) => {
     try {
         const stmt = db.prepare('SELECT * FROM products');
         const products = stmt.all();
         res.json(products);
     } catch (err) {
-        res.status(500).json({ error: 'Ошибка при получении товаров из базы.' });
+        res.status(500).json({ error: 'Ошибка при получении данных из базы.' });
     }
 });
 
@@ -66,6 +66,34 @@ app.post('/login', (req, res) => {
         res.status(200).json({ name: user.name });
     } catch (err) {
         res.status(500).json({ message: 'Ошибка входа' });
+    }
+});
+
+// ОФОРМЛЕНИЕ ЗАКАЗА
+app.post('/checkout', (req, res) => {
+    const { email, cart } = req.body;
+
+    if (!email || !cart || !Array.isArray(cart)) {
+        return res.status(400).json({ message: 'Некорректные данные для заказа' });
+    }
+
+    const orderDate = new Date().toISOString(); // текущая дата и время
+    const transaction = db.transaction((items) => {
+        items.forEach(item => {
+            const totalPrice = item.price * item.quantity; // общая цена для товара
+
+            // Вставляем товар в таблицу заказов
+            const insert = db.prepare('INSERT INTO orders (user_email, item_name, item_price, quantity, total_price, order_date) VALUES (?, ?, ?, ?, ?, ?)');
+            insert.run(email, item.name, item.price, item.quantity, totalPrice, orderDate);
+        });
+    });
+
+    try {
+        transaction(cart);
+        res.status(200).json({ message: 'Заказ успешно оформлен!' });
+    } catch (err) {
+        console.error('Ошибка при сохранении заказа:', err);
+        res.status(500).json({ message: 'Ошибка при оформлении заказа' });
     }
 });
 
