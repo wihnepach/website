@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    
+    <div class="profile-container">
+        <h1>Профиль</h1>
+
+        <div class="profile-item">
+            <span>Имя:</span><div id="userName">Nikita</div>
+        </div>
+        <div class="profile-item">
+            <span>Email:</span><div id="userEmail"></div>
+        </div>
+        
+    </div>
+
+    
+    
+    
+
+    <button class="main_page" onclick="go_main()">Hа Главную страницу</button>
+    <script>
+        console.log("Проверяем наличие purchase-list в HTML перед загрузкой скрипта!");
+        console.log(document.querySelector('.purchase-list'));
+    </script>
+    <script src="profile.js"></script>
+    </body>
+    
+</html>

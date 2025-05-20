@@ -8,14 +8,13 @@
 </head>
 <body>
   <header class="topbar">
-    <h1>СпортМания</h1>
+    <button class="logoButt" onclick="go_tomain()"><h1>СпортМания</h1></button>
     <nav>
-        <a href="/" class="index">главная</a>
-        <a href="/man" class="man-button">Мужчинам</a>
         <a href="/woman" class="woman-button">женщинам</a>
         <a href="/kids" class="kids-button">детям</a>
         <a href="/sport" class="sport-button">виды спорта</a>
         <a href="/loto" class="loto-button">лото</a>
+        <a href="/profile" class="loto-button">Профиль</a>
     </nav>
   </header>
 
@@ -25,40 +24,13 @@
   </section>
 
   <section class="filters">
-    <button onclick="filterItems('all')">Все</button>
-    <button onclick="filterItems('clothes')">Одежда</button>
-    <button onclick="filterItems('shoes')">Обувь</button>
-    <button onclick="filterItems('equipment')">Экипировка</button>
+    <button onclick="filterItems('')">Все</button>
+    <button onclick="filterItems('Одежда')">Одежда</button>
+    <button onclick="filterItems('Обувь')">Обувь</button>
+    <button onclick="filterItems('Экипировка')">Экипировка</button>
   </section>
 
-  <section class="catalog" id="catalog">
-    <div class="item clothes">
-      <img src="img/mfoot.jpg" alt="Футболка">
-      <h3>Спортивная футболка</h3>
-      <p class="price">1200₽</p>
-      <button onclick="addToCart('Спортивная футболка', 1200)">В корзину</button>
-      <button class="details-btn">Подробнее</button>
-      <p>Это описание товара. Здесь указаны все подробности о товаре, его преимуществах, материалах и других характеристиках.</p>
-      
-    </div>
-    <div class="item shoes">
-      <img src="img/beg.jpg" alt="Кроссовки">
-      <h3>Кроссовки для бега</h3>
-      <p class="price">5500₽</p>
-      <button onclick="addToCart('Кроссовки для бега с', 14000)">В корзину</button>
-      <button class="details-btn">Подробнее</button>
-      <p>Это описание товара. Здесь указаны все подробности о товаре, его преимуществах, материалах и других характеристиках.</p>
-    </div>
-    </div>
-    <div class="item equipment">
-      <img src="img/peh.jpg" alt="Перчатки">
-      <h3>Тренировочные перчатки</h3>
-      <p class="price">900₽</p>
-     <button onclick="addToCart('Тренировочные перчатки', 2500)">В корзину</button>
-      <button class="details-btn">Подробнее</button>
-      <p>Это описание товара. Здесь указаны все подробности о товаре, его преимуществах, материалах и других характеристиках.</p>
-    </div>
-    </div>
+  
    
   </section>
 
@@ -69,10 +41,18 @@
     <button onclick="checkout()">Оформить заказ</button>
   </aside>
 
-  <footer>
-    <p>© 2025 СпортМания. Все права защищены.</p>
-  </footer>
+  <div class="product-grid" id="productGrid">
+       
+  </div>
+
+  <div class="modal" id="productModal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <div id="productDescription"></div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
+  <script src="man.js"></script>
 </body>
 </html>

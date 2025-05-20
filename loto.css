@@ -1,9 +1,11 @@
+/* Основные стили */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f2f2f2;
 }
 
+/* Хедер */
 header {
   background-color: #222;
   position: sticky;
@@ -17,6 +19,7 @@ header {
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
@@ -28,10 +31,14 @@ header {
   font-weight: bold;
 }
 
+/* Навигация */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 10px 0;
+  padding: 0;
 }
 
 .nav-links li a {
@@ -49,10 +56,13 @@ header {
   background: #4caf50;
 }
 
+/* Действия пользователя */
 .user-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   align-items: center;
+  margin-top: 10px;
 }
 
 .user-actions button {
@@ -81,6 +91,7 @@ header {
   transform: scale(1.2);
 }
 
+/* Основной контент */
 main {
   max-width: 800px;
   margin: 40px auto;
@@ -90,6 +101,7 @@ main {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Секция лото */
 .loto-section {
   text-align: center;
   margin-bottom: 40px;
@@ -122,6 +134,7 @@ main {
   transform: scale(1.05);
 }
 
+/* Корзина */
 .cart-section {
   background-color: #f9f9f9;
   padding: 20px;
@@ -161,4 +174,81 @@ main {
 
 .checkout-btn:hover {
   background-color: #1976d2;
+}
+
+/* Адаптивность: планшеты */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .user-actions {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 10px;
+  }
+
+  main {
+    margin: 20px 10px;
+    padding: 15px;
+  }
+
+  .loto-section h1 {
+    font-size: 28px;
+  }
+
+  #loto-button {
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+}
+
+/* Адаптивность: мобильные */
+@media (max-width: 480px) {
+  .logo a {
+    font-size: 22px;
+  }
+
+  .nav-links li a {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .user-actions button {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .cart-icon {
+    font-size: 20px;
+  }
+
+  .loto-section h1 {
+    font-size: 24px;
+  }
+
+  .loto-section p {
+    font-size: 16px;
+  }
+
+  #loto-button {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+
+  .checkout-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .cart-section li {
+    font-size: 14px;
+  }
 }

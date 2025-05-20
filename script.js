@@ -43,109 +43,128 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     registrationForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
+    event.preventDefault();
 
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("reg-email").value;
-        const password = document.getElementById("reg-password").value;
-        const confirmPassword = document.getElementById("confirm-password").value;
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("reg-email").value;
+    const password = document.getElementById("reg-password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
 
-        if (password !== confirmPassword) {
-            alert("Пароли не совпадают!");
-            return;
-        }
+    if (password !== confirmPassword) {
+        alert("Пароли не совпадают!");
+        return;
+    }
 
-        try {
-            const res = await fetch("/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, password })
-            });
+    try {
+        const res = await fetch("/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password })
+        });
 
+        // Явная проверка JSON-ответа
+        const contentType = res.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
             const text = await res.text();
-            if (!res.ok) throw new Error(text);
-
-            alert("Регистрация успешна!");
-            localStorage.setItem("loggedInUser", email);
-            updateLoginButton();
-            toggleForm();
-        } catch (err) {
-            alert("Ошибка регистрации: " + err.message);
+            throw new Error(text || "Неверный формат ответа сервера");
         }
-    });
 
-    loginForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Ошибка регистрации");
 
-        const email = document.getElementById("login-email").value;
-        const password = document.getElementById("login-password").value;
+        alert("Регистрация успешна!");
+        
+        // Сохраняем email и дополнительные данные
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userName", data.name || name);
+        localStorage.setItem("userId", data.id || "");
+        localStorage.setItem("loggedInUser", email);
 
-        try {
-            const res = await fetch("/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password })
-            });
+        updateLoginButton();
+        toggleForm();
+    } catch (err) {
+        console.error("Ошибка регистрации:", err);
+        alert("Ошибка регистрации: " + (err.message || "Попробуйте позже"));
+    }
+});
 
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.message || "Ошибка входа");
+loginForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-            alert("Добро пожаловать, " + data.name);
-            localStorage.setItem("loggedInUser", email);
-            updateLoginButton();
-            toggleForm();
-        } catch (err) {
-            alert("Ошибка входа: " + err.message);
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    try {
+        const res = await fetch("/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        // Проверка типа ответа
+        const contentType = res.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            const text = await res.text();
+            throw new Error(text || "Неверный формат ответа сервера");
         }
-    });
 
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Ошибка входа");
+
+        alert("Добро пожаловать, " + (data.name || "пользователь"));
+        
+        // Сохраняем все полученные данные
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userName", data.name || "");
+        localStorage.setItem("userId", data.id || "");
+        localStorage.setItem("loggedInUser", email);
+  
+        updateLoginButton();
+        toggleForm();
+    } catch (err) {
+        console.error("Ошибка входа:", err);
+        alert("Ошибка входа: " + (err.message || "Попробуйте позже"));
+    }
+});
     updateLoginButton();
 });
 // корзина — массив { name, price }
-let cart = [];
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-document.addEventListener("DOMContentLoaded", () => {
-    const lotoButton = document.getElementById("loto-button");
 
-    if (lotoButton) {
-        lotoButton.addEventListener("click", async () => {
-            try {
-                const res = await fetch('/api/products');
-                const products = await res.json();
 
-                if (!products || products.length === 0) {
-                    alert("Нет доступных товаров.");
-                    return;
-                }
-
-                const randomProduct = products[Math.floor(Math.random() * products.length)];
-                addToCart(randomProduct.name, parseInt(randomProduct.price));
-
-                const itemDiv = document.getElementById("random-item");
-                if (itemDiv) {
-                    itemDiv.innerHTML = `
-                        <img src="${randomProduct.image}" alt="${randomProduct.name}" style="max-width: 120px; border-radius: 8px;">
-                        <h3>${randomProduct.name}</h3>
-                        <p><strong>${randomProduct.price}₽</strong></p>
-                        <p>${randomProduct.description}</p>
-                    `;
-                    itemDiv.classList.remove("hidden");
-                }
-
-                alert(`Вы получили: ${randomProduct.name}! Он добавлен в корзину.`);
-            } catch (err) {
-                alert("Ошибка при получении товара.");
-                console.error(err);
-            }
-        });
-    }
-
-    updateCartUI();
-});
+function saveCartToStorage() {
+    localStorage.setItem('cart', JSON.stringify(cart)); // Сохраняем корзину в localStorage
+    console.log("Сохранение корзины:", cart); // Проверьте, что данные верные
+}
 
 function addToCart(name, price) {
     cart.push({ name, price });
+    saveCartToStorage();
+    console.log("addToCart");
     updateCartUI();
+}
+
+async function findUserIdByEmail(email) {
+  try {
+    const response = await fetch('http://localhost:3000/api/find-user-id', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Request failed');
+    }
+
+    const data = await response.json();
+    return data.userId;
+    
+  } catch (error) {
+    console.error('Error finding user ID:', error);
+    return null;
+  }
 }
 
 function updateCartUI() {
@@ -169,15 +188,15 @@ function checkout() {
         alert('Корзина пуста');
         return;
     }
+    
     alert('Заказ оформлен! Спасибо за покупку.');
-    cart = [];
-    updateCartUI();
+  
+    cart = []; 
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    updateCartUI(); 
 }
 
-function addToCart(name, price) {
-    cart.push({ name, price });
-    updateCartUI();
-  }
 
   function filterItems(category) {
     const items = document.querySelectorAll('#catalog .item');
@@ -202,37 +221,43 @@ detailsBtns.forEach(btn => {
 
 document.addEventListener("DOMContentLoaded", () => {
     const lotoButton = document.getElementById("loto-button");
-  
+
     if (lotoButton) {
-      lotoButton.addEventListener("click", async () => {
-        try {
-          const res = await fetch('/api/products');
-          const products = await res.json();
-          if (!products || products.length === 0) {
-            alert("Нет доступных товаров.");
-            return;
-          }
-  
-          const randomProduct = products[Math.floor(Math.random() * products.length)];
-          addToCart(randomProduct.name, parseInt(randomProduct.price));
-  
-          const itemDiv = document.getElementById("random-item");
-          if (itemDiv) {
-            itemDiv.innerHTML = `
-              <img src="${randomProduct.image}" alt="${randomProduct.name}">
-              <h3>${randomProduct.name}</h3>
-              <p>${randomProduct.price}₽</p>
-              <p>${randomProduct.description}</p>
-            `;
-            itemDiv.classList.remove("hidden");
-          }
-        } catch (err) {
-          alert("Ошибка при получении товара.");
-          console.error(err);
-        }
-      });
+        lotoButton.addEventListener("click", async () => {
+            try {
+                const res = await fetch('/api/products');
+                const products = await res.json();
+
+                
+
+                const randomIndex = Math.floor(Math.random() * products.length);
+                const randomProduct = products[randomIndex];
+
+                if (!randomProduct || !randomProduct.name || !randomProduct.price) {
+                    
+                    return;
+                }
+
+                addToCart(randomProduct.name, parseInt(randomProduct.price));
+
+                const itemDiv = document.getElementById("random-item");
+                if (itemDiv) {
+                    itemDiv.innerHTML = `
+                        <img src="${randomProduct.image}" alt="${randomProduct.name}">
+                        <h3>${randomProduct.name}</h3>
+                        <p>${randomProduct.price}₽</p>
+                        <p>${randomProduct.description}</p>
+                    `;
+                    itemDiv.classList.remove("hidden");
+                }
+
+            } catch (err) {
+                
+            }
+        });
     }
-  });
+});
+
 
   document.addEventListener("DOMContentLoaded", () => {
     const lotoButton = document.getElementById("loto-button");
@@ -284,6 +309,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   
+function go_tomain(){
+  window.location.href = '/';
+}
+
   
   
 

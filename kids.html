@@ -10,14 +10,13 @@
 </head>
 <body>
   <header class="topbar kids-topbar">
-    <h1 class="kids-title">СпортМания</h1>
+    <button class="logoButt" onclick="go_tomain()"><h1>СпортМания</h1></button>
     <nav>
-        <a href="/" class="index">главная</a>
         <a href="/man" class="man-button">Мужчинам</a>
         <a href="/woman" class="woman-button">женщинам</a>
-        <a href="/kids" class="kids-button">детям</a>
         <a href="/sport" class="sport-button">виды спорта</a>
         <a href="/loto" class="loto-button">лото</a>
+        <a href="/profile" class="loto-button">Профиль</a>
     </nav>
   </header>
 
@@ -27,124 +26,17 @@
   </section>
 
   <section class="filters kids-filters">
-    <button onclick="filterItems('all')">Все</button>
-    <button onclick="filterItems('clothes')">Одежда</button>
-    <button onclick="filterItems('shoes')">Обувь</button>
-    <button onclick="filterItems('equipment')">Экипировка</button>
-    <button onclick="filterItems('toys')">Игрушки</button>
+    <button onclick="filterItems('')">Все</button>
+    <button onclick="filterItems('Одежда')">Одежда</button>
+    <button onclick="filterItems('Обувь')">Обувь</button>
+    <button onclick="filterItems('Экипировка')">Экипировка</button>
+    <button onclick="filterItems('Игрушки')">Игрушки</button>
   </section>
 
 
   <section class="catalog kids-catalog" id="catalog">
    
-    <div class="item clothes">
-      <img src="img/opa.jpg" alt="Детская майка">
-      <h3>Детская майка</h3>
-      <p>Цена: 600₽</p>
-      <button onclick="addToCart('Детская майка', 600)">В корзину</button>
-      <button class="details-btn">Подробнее</button>
-      <div class="item-description" style="display: none;">
-        <p>Это описание товара. Здесь указаны все подробности о товаре, его преимуществах, материалах и других характеристиках.</p>
-      </div>
-    </div>
-    <div class="item clothes">
-      <img src="img/kofta.jpg" alt="Детская кофта">
-      <h3>Детская кофта</h3>
-      <p>Цена: 1200₽</p>
-      <button onclick="addToCart('Детская кофта', 1200)">В корзину</button>
-      <button class="details-btn">Подробнее</button>
-      <div class="item-description" style="display: none;">
-        <p>Это описание товара. Здесь указаны все подробности о товаре, его преимуществах, материалах и других характеристиках.</p>
-      </div>
-    </div>
-    <div class="item clothes">
-      <img src="img/hudi.jpg" alt="Детский худи">
-      <h3>Детский худи</h3>
-      <p>Цена: 1500₽</p>
-      <button onclick="addToCart('Детский худи', 1500)">В корзину</button>
-      <button class="details-btn">Подробнее</button>
-      <div class="item-description" style="display: none;">
-        <p>Это описание товара. Здесь указаны все подробности о товаре, его преимуществах, материалах и других характеристиках.</p>
-      </div>
-    </div>
   
-   
-    <div class="item shoes">
-      <img src="img/boti.jpg" alt="Кроссовки детские">
-      <h3>Кроссовки детские</h3>
-      <p>Цена: 3200₽</p>
-      <button onclick="addToCart('Кроссовки детские', 3200)">В корзину</button>
-      <button class="details-btn">Подробнее</button>
-      <div class="item-description" style="display: none;">
-        <p>Это описание товара. Здесь указаны все подробности о товаре, его преимуществах, материалах и других характеристиках.</p>
-      </div>
-    </div>
-    <div class="item shoes">
-      <img src="img/krosi.jpg" alt="Спортивные ботинки">
-      <h3>Спортивные ботинки</h3>
-      <p>Цена: 2800₽</p>
-      <button onclick="addToCart('Спортивные ботинки', 2800)">В корзину</button>
-      <button class="details-btn">Подробнее</button>
-      <div class="item-description" style="display: none;">
-        <p>Это описание товара. Здесь указаны все подробности о товаре, его преимуществах, материалах и других характеристиках.</p>
-      </div>
-    </div>
- 
-   
-  <div class="item equipment">
-    <img src="img/kaska.jpg" alt="Шлем для детей">
-    <h3>Шлем для детей</h3>
-    <p>Цена: 1500₽</p>
-    <button onclick="addToCart('Шлем для детей', 1500)">Добавить в корзину</button>
-    <button class="details-btn">Подробнее</button>
-    <div class="item-description" style="display: none;">
-        <p>Это описание товара. Здесь указаны все подробности о товаре, его преимуществах, материалах и других характеристиках.</p>
-      </div>
-  </div>
-  
-  <div class="item equipment">
-    <img src="img/nakol.jpg" alt="Наколенники">
-    <h3>Наколенники</h3>
-    <p>Цена: 1000₽</p>
-    <button onclick="addToCart('Наколенники', 1000)">Добавить в корзину</button>
-    <button class="details-btn">Подробнее</button>
-    <div class="item-description" style="display: none;">
-        <p>Это описание товара. Здесь указаны все подробности о товаре, его преимуществах, материалах и других характеристиках.</p>
-      </div>
-  </div>
-  
-  <div class="item equipment">
-    <img src="img/kidsper.jpg" alt="Детские перчатки">
-    <h3>Детские перчатки</h3>
-    <p>Цена: 800₽</p>
-    <button onclick="addToCart('Детские перчатки', 800)">Добавить в корзину</button>
-    <button class="details-btn">Подробнее</button>
-    <div class="item-description" style="display: none;">
-        <p>Это описание товара. Здесь указаны все подробности о товаре, его преимуществах, материалах и других характеристиках.</p>
-      </div>
-  </div>
-
-
-    <div class="item toys">
-      <img src="img/foot.jpg" alt="Детский мяч">
-      <h3>Мяч детский</h3>
-      <p>Цена: 400₽</p>
-      <button onclick="addToCart('Мяч детский', 400)">В корзину</button>
-      <button class="details-btn">Подробнее</button>
-      <div class="item-description" style="display: none;">
-        <p>Это описание товара. Здесь указаны все подробности о товаре, его преимуществах, материалах и других характеристиках.</p>
-      </div>
-    </div>
-    <div class="item toys">
-      <img src="img/plush.jpg" alt="Плюшевая игрушка">
-      <h3>Плюшевая игрушка</h3>
-      <p>Цена: 500₽</p>
-      <button onclick="addToCart('Плюшевая игрушка', 500)">В корзину</button>
-      <button class="details-btn">Подробнее</button>
-      <div class="item-description" style="display: none;">
-        <p>Это описание товара. Здесь указаны все подробности о товаре, его преимуществах, материалах и других характеристиках.</p>
-      </div>
-    </div>
 
     
   </section>
@@ -160,10 +52,18 @@
     <button onclick="checkout()">Оформить заказ</button>
   </aside>
 
-  <footer class="kids-footer">
-    <p>© 2025 СпортМания. Все права защищены.</p>
-  </footer>
+  <div class="product-grid" id="productGrid">
+       
+  </div>
 
+  <div class="modal" id="productModal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <div id="productDescription"></div>
+    </div>
+  </div>
+ 
   <script src="script.js"></script>
+  <script src="kids.js"></script>
 </body>
 </html>

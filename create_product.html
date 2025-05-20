@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание Товара</title>
+    <link rel="stylesheet" href="create_product.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Создание Товара</h1>
+        
+        <form id="createProductForm">
+            <div class="form-group">
+                <label for="productName">Название товара</label>
+                <input type="text" id="productName" name="name" placeholder="Введите название товара" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productDescription">Описание товара</label>
+                <textarea id="productDescription" name="description" placeholder="Введите описание товара" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="productPrice">Цена товара</label>
+                <input type="number" id="productPrice" name="price" placeholder="Введите цену товара" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productImage">Добавить фото товара</label>
+                <input type="file" id="productImage" name="image" accept="image/*" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productTag">Добавить теги товара</label>
+            </div>
+
+            <div class="tag-group" id="tag_group_main">
+                <button type="button" class="tag" onclick="add_tag_main(this.textContent)">Мужчинам</button>
+                <button type="button" class="tag" onclick="add_tag_main(this.textContent)">Женщинам</button>
+                <button type="button" class="tag" onclick="add_tag_main(this.textContent)">Детям</button>
+                <button type="button" class="tag" onclick="add_tag_main(this.textContent)">Виды спорта</button>
+            </div>
+
+            <div class="tag-group" id="tag_group_man">
+                <button type="button" class="tag" onclick="add_tag_man(this.textContent)">Одежда</button>
+                <button type="button" class="tag" onclick="add_tag_man(this.textContent)">Обувь</button>
+                <button type="button" class="tag" onclick="add_tag_man(this.textContent)">Экипировка</button>
+            </div>
+
+            <div class="tag-group" id="tag_group_woman">
+                <button type="button" class="tag" onclick="add_tag_woman(this.textContent)">Одежда</button>
+                <button type="button" class="tag" onclick="add_tag_woman(this.textContent)">Обувь</button>
+                <button type="button" class="tag" onclick="add_tag_woman(this.textContent)">Аксессуары</button>
+            </div>
+
+            <div class="tag-group" id="tag_group_kid">
+                <button type="button" class="tag" onclick="add_tag_kid(this.textContent)">Одежда</button>
+                <button type="button" class="tag" onclick="add_tag_kid(this.textContent)">Обувь</button>
+                <button type="button" class="tag" onclick="add_tag_kid(this.textContent)">Экипировка</button>
+                <button type="button" class="tag" onclick="add_tag_kid(this.textContent)">Игрушки</button>
+            </div>
+
+            <div class="tag-group" id="tag_group_sport">
+                <button type="button" class="tag" onclick="add_tag_sport(this.textContent)">Одежда</button>
+                <button type="button" class="tag" onclick="add_tag_sport(this.textContent)">Обувь</button>
+                <button type="button" class="tag" onclick="add_tag_sport(this.textContent)">Велосипеды</button>
+                <button type="button" class="tag" onclick="add_tag_sport(this.textContent)">Экипировка</button>
+            </div>
+
+
+            <div id="selected-tags" class="selected-tags"></div>
+            
+            <button type="submit" id="submitBtn">Создать товар</button>
+        </form>
+    </div>
+    <button class="main_page" onclick="go_main()">Hа Главную страницу</button>
+    <script src="/create_product.js"></script>
+</body>
+</html>
