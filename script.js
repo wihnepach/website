@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         // Сохраняем email и дополнительные данные
         localStorage.setItem("userEmail", email);
+        localStorage.setItem("isUserLogin", "1");
         localStorage.setItem("userName", data.name || name);
         localStorage.setItem("userId", data.id || "");
         localStorage.setItem("loggedInUser", email);
@@ -129,6 +130,7 @@ loginForm.addEventListener("submit", async function (event) {
         
         // Сохраняем все полученные данные
         localStorage.setItem("userEmail", email);
+        localStorage.setItem("isUserLogin", "1");
         localStorage.setItem("userName", data.name || "");
         localStorage.setItem("userId", data.id || "");
         localStorage.setItem("loggedInUser", email);
