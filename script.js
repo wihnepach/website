@@ -3,13 +3,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const registrationForm = document.getElementById("registration-form");
     const formContainer = document.getElementById("form-container");
     const loginButton = document.getElementById("login-button");
-
+ 
+    //Функция обновления кнопки входа 
     function updateLoginButton() {
         const loggedInUser = localStorage.getItem("loggedInUser");
 
         if (loggedInUser) {
             loginButton.textContent = "выйти";
             loginButton.onclick = function () {
+                clearLocalStorage()
                 localStorage.removeItem("loggedInUser");
                 loginButton.textContent = "войти";
                 loginButton.onclick = toggleForm;
@@ -20,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
             loginButton.onclick = toggleForm;
         }
     }
-
+ //Переключатели форм  управляют отображением формы входа/регистрации и затемнением фона.
     window.showRegistrationForm = function () {
         loginForm.style.display = "none";
         registrationForm.style.display = "block";
@@ -62,15 +64,21 @@ document.addEventListener("DOMContentLoaded", function () {
             body: JSON.stringify({ name, email, password })
         });
 
-        // Явная проверка JSON-ответа
+        //  проверка JSON-ответа/Отправляем данные на сервер для регистрации.
         const contentType = res.headers.get('content-type');
         if (!contentType || !contentType.includes('application/json')) {
             const text = await res.text();
             throw new Error(text || "Неверный формат ответа сервера");
         }
 
+        // Логируем ответ сервера для отладки
+        console.log("Статус ответа:", res.status);
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Ошибка регистрации");
+        console.log("Ответ сервера:", data);
+
+        if (!res.ok) {
+            throw new Error(data.error || "Ошибка регистрации (неизвестная ошибка сервера)");
+}
 
         alert("Регистрация успешна!");
         
@@ -80,6 +88,12 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("userId", data.id || "");
         localStorage.setItem("loggedInUser", email);
 
+        getUserNameByEmail(localStorage.getItem('userEmail')).then(username => {
+        if (username) {
+            localStorage.setItem("userName", username || "");
+        }
+    });
+
         updateLoginButton();
         toggleForm();
     } catch (err) {
@@ -87,13 +101,13 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Ошибка регистрации: " + (err.message || "Попробуйте позже"));
     }
 });
-
+//Обработка входа
 loginForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const email = document.getElementById("login-email").value;
     const password = document.getElementById("login-password").value;
-
+//Получаем email и пароль.
     try {
         const res = await fetch("/login", {
             method: "POST",
@@ -118,6 +132,12 @@ loginForm.addEventListener("submit", async function (event) {
         localStorage.setItem("userName", data.name || "");
         localStorage.setItem("userId", data.id || "");
         localStorage.setItem("loggedInUser", email);
+
+        getUserNameByEmail(localStorage.getItem('userEmail')).then(username => {
+        if (username) {
+            localStorage.setItem("userName", username || "");
+        }
+    });
   
         updateLoginButton();
         toggleForm();
@@ -128,9 +148,76 @@ loginForm.addEventListener("submit", async function (event) {
 });
     updateLoginButton();
 });
-// корзина — массив { name, price }
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+getUserNameByEmail(localStorage.getItem('userEmail')).then(username => {
+        if (username) {
+            localStorage.setItem("userName", username || "");
+        }
+    });
+function clearLocalStorage() {
+    localStorage.clear(); // Удаляет ВСЕ данные из localStorage
+    console.log("localStorage очищен!");
+}
+
+function isUserLogin() {
+  const isLogin = localStorage.getItem("isUserLogin");
+  if (isLogin === "1") {
+    return true;
+  } else {
+    alert('Вы не вошли в аккаунт');
+    console.log(isLogin);
+    return false;
+  }
+}
+
+function isLogin(page){
+  if (!isUserLogin()) return;
+  else{
+    window.location.href = page;
+  }
+}
+
+// корзина — массив { name, price } / Отправляет email на сервер, получает имя пользователя.
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+//При загрузке страницы — если email есть, запрашиваем имя.
+async function getUserNameByEmail(email) {
+    try {
+        const response = await fetch('/api/get_username_by_email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email }) // отправляем объект с email
+        });
+
+        if (!response.ok) {
+            throw new Error(`Ошибка сервера: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data && data.username) {
+            console.log("Имя пользователя:", data.username);
+            localStorage.setItem("userName", data.username );
+            return data.username;
+        } else {
+            console.log("Пользователь не найден");
+            return null;
+        }
+    } catch (error) {
+        console.error("Ошибка при получении имени пользователя:", error);
+        return null;
+    }
+}
+
+const cachedEmail = localStorage.getItem('userEmail'); // или sessionStorage / переменная
+if (cachedEmail) {
+    getUserNameByEmail(cachedEmail).then(username => {
+        if (username) {
+            sessionStorage.setItem("userName", username || "");
+        }
+    });
+}
 
 
 function saveCartToStorage() {
@@ -139,6 +226,7 @@ function saveCartToStorage() {
 }
 
 function addToCart(name, price) {
+     if (!isUserLogin()) return;
     cart.push({ name, price });
     saveCartToStorage();
     console.log("addToCart");
@@ -166,7 +254,7 @@ async function findUserIdByEmail(email) {
     return null;
   }
 }
-
+//Обновление корзины в интерфейсе
 function updateCartUI() {
     const cartList = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
@@ -182,7 +270,7 @@ function updateCartUI() {
 
     cartTotal.textContent = total;
 }
-
+//обновляет HTML-список товаров и сумму.
 function checkout() {
     if (cart.length === 0) {
         alert('Корзина пуста');
@@ -197,7 +285,7 @@ function checkout() {
     updateCartUI(); 
 }
 
-
+//Фильтрация товаров/Показывает только товары нужной категории.
   function filterItems(category) {
     const items = document.querySelectorAll('#catalog .item');
     items.forEach(item => {
@@ -207,7 +295,7 @@ function checkout() {
     });
   }
   const detailsBtns = document.querySelectorAll('.details-btn');
-
+//Показ описания товара/ При клике на кнопку «Подробнее» показываем/скрываем описание
 detailsBtns.forEach(btn => {
   btn.addEventListener('click', function() {
     const description = this.nextElementSibling;
@@ -218,7 +306,7 @@ detailsBtns.forEach(btn => {
     }
   });
 });
-
+//Получает товары с сервера, выбирает случайный и добавляет в корзину.
 document.addEventListener("DOMContentLoaded", () => {
     const lotoButton = document.getElementById("loto-button");
 
@@ -308,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
-  
+// Переход на главную  
 function go_tomain(){
   window.location.href = '/';
 }

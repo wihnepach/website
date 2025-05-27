@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const Database = require('better-sqlite3');
 const sqlite3 = require('sqlite3').verbose();  // Подключаем SQLite
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser'); //читать JSON из POST
 const multer = require('multer');
 
 const app = express();
@@ -10,7 +10,7 @@ const PORT = 5501;
 
 
 
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname))); //отправка стат файлов
 app.use(bodyParser.json());
 
 const db = new sqlite3.Database('base_arsen_markarian.db', (err) => {
@@ -22,7 +22,7 @@ const db = new sqlite3.Database('base_arsen_markarian.db', (err) => {
     }
 });
 
-// СТАТИЧЕСКИЕ СТРАНИЦЫ
+// СТАТИЧЕСКИЕ СТРАНИЦЫ ЗАПРОСЫ НА HTML ФАЙЛЫ
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/man', (req, res) => res.sendFile(path.join(__dirname, 'man.html')));
 app.get('/profile', (req, res) => res.sendFile(path.join(__dirname, 'profile.html')));
@@ -31,6 +31,7 @@ app.get('/kids', (req, res) => res.sendFile(path.join(__dirname, 'kids.html')));
 app.get('/sport', (req, res) => res.sendFile(path.join(__dirname, 'sport.html')));
 app.get('/loto', (req, res) => res.sendFile(path.join(__dirname, 'loto.html')));
 app.get('/create_product', (req, res) => res.sendFile(path.join(__dirname, 'create_product.html')));
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -52,7 +53,7 @@ app.get('/api/products', (req, res) => {
     }
 });
 
-// РЕГИСТРАЦИЯ
+// РЕГИСТРАЦИЯ ПРОВЕРКА ЧЕРЕЗ EMAIL
 app.post('/register', (req, res) => {
     const { name, email, password } = req.body;
 
@@ -119,6 +120,7 @@ app.post('/checkout', (req, res) => {
     }
 });
 
+//СОЗДАНИЕ НОВОГО ПРОДУКТА ID ПОЛУЧАЕМ ПО EMAIL
 app.post('/api/find-user-id', (req, res) => {
   const { email } = req.body;
 
@@ -148,7 +150,7 @@ app.post('/api/find-user-id', (req, res) => {
 });
 
 const upload = multer({ storage: storage });
-
+//ДОБАВЛЕНИЕ ПРОДУКТА В БАЗУ ДАННЫХ/ПРОВЕРКА ИЗОБРАЖЕНИЯ/ПОЛЕЙ
 app.post('/create-product', upload.single('image'), (req, res) => {
     console.log('POST /create-product вызван');
     console.log('BODY:', req.body);
@@ -186,7 +188,7 @@ app.get('/api/created_products', (req, res) => {
         res.json(rows);
     });
 });
-
+//ФИЛЬТРАЦИЯ ПО MAIN_TAG
 app.get('/api/created_products', (req, res) => {
     const { main_tag } = req.query;
 
@@ -205,6 +207,30 @@ app.get('/api/created_products', (req, res) => {
         res.json(rows);
     });
 });
+//ИЩЕМ ПОЛЬЗОВАТЕЛЯ ПО EMAIL
+app.post('/api/get_username_by_email', (req, res) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ error: 'Email не передан' });
+    }
+
+    const query = `SELECT name FROM users WHERE email = ?`;
+
+    db.get(query, [email], (err, row) => {
+        if (err) {
+            console.error("Ошибка запроса к БД:", err);
+            return res.status(500).json({ error: 'Ошибка сервера' });
+        } 
+
+        if (row) {
+            res.json({ username: row.name });
+        } else {
+            res.status(404).json({ error: 'Пользователь не найден' });
+        }
+    });
+});
+
 
 // СТАРТ СЕРВЕРА
 app.listen(PORT, () => {

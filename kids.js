@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         console.log("Контейнер найден:", productGrid);
 
-        // ✅ Фильтрация по main_tag === "Женщинам"
+        //  Фильтрация по main_tag === "Женщинам"
         const filteredProducts = data.filter(product => product.main_tag === "Детям");
 
         filteredProducts.forEach(product => {

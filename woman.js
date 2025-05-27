@@ -9,13 +9,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     closeBtn.addEventListener('click', () => {
         modal.style.display = 'none';
     });
-
+//Если пользователь кликнет вне содержимого модального окна (на затемнённый фон — сам modal), тоже закрываем окно.
     window.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.style.display = 'none';
         }
     });
 
+//Отправляем запрос на сервер, чтобы получить список продуктов.
+//Ждём ответа и выводим HTTP статус ответа
     try {
         const response = await fetch('/api/created_products');
         console.log("Статус ответа:", response.status);
@@ -27,12 +29,15 @@ document.addEventListener("DOMContentLoaded", async function () {
             throw new Error("Ошибка: данные не являются массивом!");
         }
 
+        //Логируем полученные данные
         console.log("Контейнер найден:", productGrid);
 
-        // ✅ Фильтрация по main_tag === "Женщинам"
+        // Фильтрация по main_tag === "Женщинам"
         const filteredProducts = data.filter(product => product.main_tag === "Женщинам");
 
+        //Для каждого отфильтрованного товара создаём карточку.
         filteredProducts.forEach(product => {
+            //Создаём контейнер карточки товара и даём ему класс для стилей.
             const productCard = document.createElement('div');
             productCard.classList.add('product-card');
 
@@ -68,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 addToCart(product.name, product.price);
             });
             productCard.appendChild(productBuy);
-
+//Добавляем готовую карточку товара в контейнер на странице.
             productGrid.appendChild(productCard);
         });
 
