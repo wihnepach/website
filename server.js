@@ -53,26 +53,38 @@ app.get('/api/products', (req, res) => {
     }
 });
 
-// РЕГИСТРАЦИЯ ПРОВЕРКА ЧЕРЕЗ EMAIL
 app.post('/register', (req, res) => {
     const { name, email, password } = req.body;
 
-    try {
-        const checkStmt = db.prepare('SELECT * FROM users WHERE email = ?');
-        const existing = checkStmt.get(email);
-
-        if (existing) {
-            return res.status(400).json({ message: 'Email уже зарегистрирован' });
+    db.get('SELECT * FROM users WHERE email = ?', [email], (err, row) => {
+        if (err) {
+            console.error('Ошибка запроса:', err);
+            return res.status(500).json({ error: 'Ошибка сервера' });
         }
 
-        const insertStmt = db.prepare('INSERT INTO users (name, email, password) VALUES (?, ?, ?)');
-        insertStmt.run(name, email, password);
+        if (row) {
+            // email найден
+            return res.status(400).json({ error: 'Email уже зарегистрирован' });
+        }
 
-        res.status(200).send('OK');
-    } catch (err) {
-        res.status(500).json({ message: 'Ошибка регистрации' });
-    }
+        // Email не найден, вставляем нового пользователя
+        const stmt = db.prepare('INSERT INTO users (name, email, password) VALUES (?, ?, ?)');
+        stmt.run(name, email, password, function(err) {
+            if (err) {
+                console.error('Ошибка вставки:', err);
+                return res.status(500).json({ error: 'Ошибка сервера при регистрации' });
+            }
+
+            res.status(200).json({
+                id: this.lastID,
+                name,
+                email
+            });
+        });
+        stmt.finalize();
+    });
 });
+
 
 // ВХОД
 app.post('/login', (req, res) => {
